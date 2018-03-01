@@ -18,9 +18,10 @@ class TicketsController extends Controller
             ];
         }
 
-        $ticket = new Ticket;
-        $ticket->pin = strtoupper(str_random(4));
-        $ticket->save();
+        $ticket = $this->createNewTicket();
+
+        session('ticketNumber', $ticket->id);
+        session('pin', $ticket->pin);
 
         return [
             'ticket' => $ticket,
@@ -36,5 +37,13 @@ class TicketsController extends Controller
 
     public static function availableSpaces() {
         return self::MAX_SPACES - Ticket::all()->count();
+    }
+
+    public static function createNewTicket() {
+        $ticket = new Ticket;
+        $ticket->pin = strtoupper(str_random(4));
+        $ticket->save();
+
+        return $ticket;
     }
 }

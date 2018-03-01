@@ -5,12 +5,8 @@
                 <div class="card card-default">
                     <div class="card-header">Payment Details</div>
 
-                    <div v-if="error" class="alert alert-danger">
-                        {{ error }}
-                    </div>
-                    <div v-if="success" class="alert alert-success">
-                        {{ success }}
-                    </div>
+                    <alert-message :error="error" :success="success"></alert-message>
+
                     Ticket Number: {{ details.ticket.id }} <br>
                     Time in: {{ details.timeIn }} <br>
                     Time out: {{ details.timeOut }} <br>
@@ -35,7 +31,10 @@
 </template>
 
 <script>
+    import AlertMessage from './AlertMessage';
+
     export default {
+        components: { AlertMessage },
         name: "payment-details",
         props: ['details'],
         data() {
@@ -47,13 +46,12 @@
         },
         methods: {
             sendPayment() {
-                axios.post('/payment/pay', {
+                axios.post('/api/payment/pay', {
                     ticket_number: this.details.ticket.id
                 })
                     .then(({data}) => this.processPayment(data));
             },
             processPayment(data) {
-                console.log(data);
                 if(data.hasOwnProperty('error')) {
                     this.error = data.error;
                 }

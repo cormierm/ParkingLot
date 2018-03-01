@@ -75,7 +75,7 @@
                 this.formErrors.email = '';
                 this.formErrors.name = '';
                 this.error = '';
-                axios.post('/waitlist', {
+                axios.post('/api/waitlist', {
                     email: this.email,
                     name: this.name
                 })
@@ -83,8 +83,6 @@
                     .catch(error => this.processErrors(error.response.data));
             },
             processExit(data) {
-                console.log('processExit:');
-                console.log(data);
                 if (data.hasOwnProperty('success')) {
                     this.isDone = true;
                     this.success = data.success;
@@ -94,8 +92,6 @@
                 }
             },
             processErrors(data) {
-                console.log('processErrors:');
-                console.log(data);
                 if (data.errors.hasOwnProperty('email')) {
                     this.formErrors.email = data.errors.email[0];
                 }

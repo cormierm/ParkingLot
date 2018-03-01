@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="container col-md-7">
-            <h1>Vehikl Parking Lot</h1>
             <br>
             <div class="card card-default">
                 <div class="card-header">Parking Lot Status</div>
@@ -23,6 +22,10 @@
 
             <router-link v-if="availableSpaces < 1" tag="div" to="/waitlist" class="form-group">
                 <button class="btn btn-primary btn-lg btn-block">Enter Waiting List</button>
+            </router-link>
+
+            <router-link tag="div" to="/waitlistEntrance" class="form-group">
+                <button class="btn btn-default btn-lg btn-block">Enter Parking Lot with Wait List Information</button>
             </router-link>
 
             <router-link tag="div" to="/ticket/pay" class="form-group">
@@ -49,7 +52,7 @@
         },
         methods: {
             checkStatus() {
-                axios.get('/ticket/status')
+                axios.get('/api/ticket/status')
                     .then(({data}) => this.availableSpaces = data.available);
             }
         },

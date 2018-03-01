@@ -28,7 +28,7 @@
         name: "ticket",
         methods: {
             createTicket() {
-                axios.post('/ticket/create')
+                axios.post('/api/ticket/create')
                     .then(({data}) => this.processCreateTicket(data));
             },
             processCreateTicket(data) {

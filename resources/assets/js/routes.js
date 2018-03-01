@@ -20,6 +20,10 @@ let routes = [
     {
         path: '/waitlist',
         component: require('./views/Waitlist')
+    },
+    {
+        path: '/waitlistEntrance',
+        component: require('./views/WaitListEntrance')
     }
 ];
 

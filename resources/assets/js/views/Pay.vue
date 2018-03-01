@@ -8,9 +8,7 @@
                     <div class="card-header">Pay Parking Ticket</div>
 
                     <div class="card-body">
-                        <div v-if="error" class="alert alert-danger">
-                            {{ error }}
-                        </div>
+                        <alert-message :error="error"></alert-message>
                         <form method="post" action="/payment/pay" @submit.prevent="onSubmit">
 
                             <div class="form-group row">
@@ -18,9 +16,9 @@
 
                                 <div class="col-md-6">
                                     <input v-model="ticketNumber" type="number" id="ticket_number" name="ticket_number"
-                                           class="form-control" required :disabled="is_valid">
-                                    <span v-show="errorTicket" class="alert-danger">
-                                        <strong>{{ errorTicket }}</strong>
+                                           class="form-control" required :disabled="isValid">
+                                    <span v-show="formErrors.ticketNumber" class="alert-danger">
+                                        <strong>{{ formErrors.ticketNumber }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -30,9 +28,9 @@
 
                                 <div class="col-md-6">
                                     <input v-model="pin" type="text" id="pin" name="pin" class="form-control"
-                                           required :disabled="is_valid">
-                                    <span v-show="errorPin" class="alert-danger">
-                                        <strong>{{ errorPin }}</strong>
+                                           required :disabled="isValid">
+                                    <span v-show="formErrors.pin" class="alert-danger">
+                                        <strong>{{ formErrors.pin }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -40,7 +38,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button class="btn btn-primary" :disabled="is_valid">
+                                    <button class="btn btn-primary" :disabled="isValid">
                                         Pay Ticket
                                     </button>
                                 </div>
@@ -50,15 +48,16 @@
                 </div>
             </div>
         </div>
-        <payment-details v-if="is_valid" :details="data"></payment-details>
+        <payment-details v-if="isValid" :details="data"></payment-details>
     </div>
 </template>
 
 <script>
     import PaymentDetails from '../components/PaymentDetails';
+    import AlertMessage from '../components/AlertMessage';
 
     export default {
-        components: { PaymentDetails },
+        components: { PaymentDetails, AlertMessage },
         name: "pay",
         data() {
             return {
@@ -66,17 +65,18 @@
                 message: '',
                 ticketNumber: '',
                 pin: '',
-                is_valid: false,
+                isValid: false,
                 details: {},
-                errorTicket: '',
-                errorPin: ''
+                formErrors: { 'ticketNumber': '', 'pin': ''}
             }
         },
         methods: {
             onSubmit() {
-                this.errorPin = '';
-                this.errorTicket = '';
-                axios.post('/payment/details', {
+                this.error = '';
+                this.message = '';
+                this.formErrors.ticketNumber = '';
+                this.formErrors.pin = '';
+                axios.post('/api/payment/details', {
                     ticket_number: this.ticketNumber,
                     pin: this.pin
                 })
@@ -84,21 +84,20 @@
                     .catch(error => this.processErrors(error.response.data));
             },
             processDetails (data) {
-                console.log(data);
                 if (data.hasOwnProperty('error')) {
                     this.error = data.error;
                 }
                 else {
                     this.data = data;
-                    this.is_valid = true;
+                    this.isValid = true;
                 }
             },
             processErrors(data) {
                 if (data.errors.hasOwnProperty('ticket_number')) {
-                    this.errorTicket = data.errors.ticket_number[0];
+                    this.formErrors.ticketNumber = data.errors.ticket_number[0];
                 }
                 if (data.errors.hasOwnProperty('pin')) {
-                    this.errorPin = data.errors.pin[0];
+                    this.formErrors.pin = data.errors.pin[0];
                 }
             }
         }

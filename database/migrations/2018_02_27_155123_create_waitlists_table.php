@@ -17,7 +17,6 @@ class CreateWaitlistsTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('name')->default(null)->nullable();
-            $table->boolean('allowed_entry')->default(false);
             $table->timestamps();
         });
     }

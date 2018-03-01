@@ -16,6 +16,7 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('pin');
+            $table->boolean('is_entered')->default(true);
             $table->boolean('is_paid')->default(false);
             $table->timestamp('time_out')->default(null);
             $table->timestamps();

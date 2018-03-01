@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Waitlist;
+use Illuminate\Support\Facades\Mail;
 
 class WaitListController extends Controller
 {
@@ -28,5 +29,31 @@ class WaitListController extends Controller
 
         Waitlist::create($request->all());
         return ['success' => 'Successfully added to Wait List'];
+    }
+
+    public static function processWaitList() {
+        $nextWaitListUser = Waitlist::all()->first();
+
+        if (!is_null($nextWaitListUser)) {
+            $nextWaitListUser->delete();
+
+            if (TicketsController::availableSpaces() > 0) {
+                $ticket = TicketsController::createNewTicket();
+                $ticket->is_entered = false;
+                $ticket->save();
+
+                $data = [
+                    'ticket_number' => $ticket->id,
+                    'pin' => $ticket->pin
+                ];
+
+//            // TODO: Write function to send email
+//            Mail::send('emails.waitlist', $data, function ($message) use ($nextWaitListUser) {
+//
+//                $message->to($nextWaitListUser->email, $nextWaitListUser->name)->subject('Vehikl Parking Spot Available');
+//
+//            });
+            }
+        }
     }
 }
