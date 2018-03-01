@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,24 @@ class TicketsController extends Controller
             'ticket' => $ticket,
             'message' => 'Ticket successfully created.'
             ];
+    }
+
+    public function cancel(Request $request) {
+        try {
+            $ticket = Ticket::findOrFail($request->ticket_number);
+        }
+        catch (ModelNotFoundException $ex) {
+            return "Invalid entry.";
+        }
+
+        if ($ticket->pin == strtoupper($request->pin)) {
+            $ticket->delete();
+            return "Ticket successfully cancelled.";
+        }
+        else {
+            return "Invalid entry.";
+        }
+
     }
 
     public function status() {

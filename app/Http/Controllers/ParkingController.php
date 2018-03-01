@@ -33,8 +33,8 @@ class ParkingController extends Controller
         }
         else if ($ticket->is_paid && $ticket->pin == $pin)
         {
-            WaitListController::processWaitList();
             $ticket->delete();
+            WaitListController::processWaitList();
             return ['success' => 'Thank you for your business!'];
         }
     }

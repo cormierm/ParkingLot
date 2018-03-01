@@ -37,23 +37,20 @@ class WaitListController extends Controller
         if (!is_null($nextWaitListUser)) {
             $nextWaitListUser->delete();
 
-            if (TicketsController::availableSpaces() > 0) {
-                $ticket = TicketsController::createNewTicket();
-                $ticket->is_entered = false;
-                $ticket->save();
+            $ticket = TicketsController::createNewTicket();
+            $ticket->is_entered = false;
+            $ticket->save();
 
-                $data = [
-                    'ticket_number' => $ticket->id,
-                    'pin' => $ticket->pin
-                ];
+            $data = [
+                'ticket_number' => $ticket->id,
+                'pin' => $ticket->pin
+            ];
 
-//            // TODO: Write function to send email
-//            Mail::send('emails.waitlist', $data, function ($message) use ($nextWaitListUser) {
-//
-//                $message->to($nextWaitListUser->email, $nextWaitListUser->name)->subject('Vehikl Parking Spot Available');
-//
-//            });
-            }
+            Mail::send('emails.waitlist', $data, function ($message) use ($nextWaitListUser) {
+
+                $message->to($nextWaitListUser->email, $nextWaitListUser->name)->subject('Vehikl Parking Spot Available');
+
+            });
         }
     }
 }

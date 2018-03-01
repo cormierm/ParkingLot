@@ -2,6 +2,8 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/waitlist/cancel', 'TicketsController@cancel');
+
 //Route::post('/ticket/create', 'TicketsController@create');
 //Route::get('/ticket/status', 'TicketsController@status');
 //
