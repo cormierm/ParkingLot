@@ -17,7 +17,7 @@
         PIN: {{ $pin }}
     </p>
     <p>If you no longer need to space please
-        <a href="http://parking.mattcormier.com/waitlist/cancel?ticketnumber={{ $ticket_number }}&pin={{ $pin }}"> click here.</a>
+        <a href="http://parking.mattcormier.com/waitlist/cancel?ticket_number={{ $ticket_number }}&pin={{ $pin }}"> click here.</a>
     </p>
 
 </body>
