@@ -4,26 +4,26 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">Payment Details</div>
+                        <div class="card-body">
+                            <alert-message :error="error" :success="success"></alert-message>
 
-                    <alert-message :error="error" :success="success"></alert-message>
+                            Ticket Number: {{ details.ticket.id }} <br>
+                            Time in: {{ details.timeIn }} <br>
+                            Time out: {{ details.timeOut }} <br>
+                            Parking time in minutes: {{ details.totalTime }} <br>
+                            Amount due: ${{ details.amountDue }} <br>
 
-                    Ticket Number: {{ details.ticket.id }} <br>
-                    Time in: {{ details.timeIn }} <br>
-                    Time out: {{ details.timeOut }} <br>
-                    Parking time in minutes: {{ details.totalTime }} <br>
-                    Amount due: ${{ details.amountDue }} <br>
-
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button @click="sendPayment" class="btn btn-danger" v-if="!isPaid">
-                                Pay Ticket
-                            </button>
-                            <router-link v-if="isPaid" tag="div" to="/" class="form-group">
-                                <button class="btn btn-info">Back to Home</button>
-                            </router-link>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button @click="sendPayment" class="btn btn-danger" v-if="!isPaid">
+                                        Pay Ticket
+                                    </button>
+                                    <router-link v-if="isPaid" tag="div" to="/" class="form-group">
+                                        <button class="btn btn-info">Back to Home</button>
+                                    </router-link>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

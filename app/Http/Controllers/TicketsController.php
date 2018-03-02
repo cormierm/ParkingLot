@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Support\Facades\Auth;
 use App\Ticket;
 
 class TicketsController extends Controller
@@ -13,7 +11,7 @@ class TicketsController extends Controller
     const MAX_SPACES = 5;
 
     public function create() {
-        if ((self::MAX_SPACES - Ticket::all()->count()) <= 0){
+        if ((self::MAX_SPACES - Ticket::all()->count()) <= 0) {
             return [
                 'message' => 'Sorry, Parking is full. Please wait till space becomes available.'
             ];
@@ -35,17 +33,16 @@ class TicketsController extends Controller
             $ticket = Ticket::findOrFail($request->ticket_number);
         }
         catch (ModelNotFoundException $ex) {
-            return "Invalid entry.";
+            return "Invalid or expired entry.";
         }
 
-        if ($ticket->pin == strtoupper($request->pin)) {
+        if ($ticket->pin == strtoupper($request->pin) && !$ticket->is_entered) {
             $ticket->delete();
             return "Ticket successfully cancelled.";
         }
         else {
-            return "Invalid entry.";
+            return "Invalid or expired entry.";
         }
-
     }
 
     public function status() {

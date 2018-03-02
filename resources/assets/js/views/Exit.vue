@@ -1,21 +1,21 @@
 <template>
     <div class="container">
+        <br>
         <div class="row justify-content-center">
             <div class="col-md-8">
-
                 <div class="card card-default">
                     <div class="card-header">Exit Parking Lot</div>
-
-                    <alert-message :error="error" :success="success"></alert-message>
-
                     <div class="card-body">
+                        <alert-message :error="error" :success="success"></alert-message>
+
                         <form method="post" action="/api/parking/exit" @submit.prevent="onSubmit">
 
                             <div class="form-group row">
                                 <label for="ticket_number" class="col-md-4 col-form-label text-md-right">Ticket Number</label>
 
                                 <div class="col-md-6">
-                                    <input v-model="ticketNumber" type="number" id="ticket_number" name="ticket_number" class="form-control" required>
+                                    <input v-model="ticketNumber" type="number" id="ticket_number" name="ticket_number"
+                                           class="form-control" required :disabled="isDone">
                                     <span v-show="formErrors.ticketNumber" class="alert-danger">
                                         <strong>{{ formErrors.ticketNumber }}</strong>
                                     </span>
@@ -26,15 +26,13 @@
                                 <label for="pin" class="col-md-4 col-form-label text-md-right">PIN</label>
 
                                 <div class="col-md-6">
-                                    <input v-model="pin" type="text" id="pin" name="pin" class="form-control" required>
+                                    <input v-model="pin" type="text" id="pin" name="pin" class="form-control" required
+                                           :disabled="isDone">
                                     <span v-show="formErrors.pin" class="alert-danger">
                                         <strong>{{ formErrors.pin }}</strong>
                                     </span>
                                 </div>
-
-
                             </div>
-
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -47,7 +45,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

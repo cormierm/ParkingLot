@@ -17078,7 +17078,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17166,12 +17166,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "home",
     data: function data() {
         return {
-            availableSpaces: 1
+            availableSpaces: 5,
+            isRefreshed: false
         };
     },
 
@@ -17181,11 +17186,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('/api/ticket/status').then(function (_ref) {
                 var data = _ref.data;
-                return _this.availableSpaces = data.available;
+
+                _this.availableSpaces = data.available;
+                _this.isRefreshed = true;
             });
         }
     },
-    mounted: function mounted() {
+    created: function created() {
         this.checkStatus();
     }
 });
@@ -17208,18 +17215,22 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _vm.availableSpaces > 0
+          _vm.availableSpaces > 0 && _vm.isRefreshed
             ? _c("p", [
                 _vm._v(
-                  "There is currently " +
+                  "\n                    There is currently " +
                     _vm._s(_vm.availableSpaces) +
-                    " parking spaces available."
+                    " parking spaces available.\n                "
                 )
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.availableSpaces < 1
-            ? _c("p", [_vm._v("PARKING LOT IS FULL")])
+          _vm.availableSpaces < 1 && _vm.isRefreshed
+            ? _c("p", [
+                _vm._v(
+                  "\n                    PARKING LOT IS FULL\n                "
+                )
+              ])
             : _vm._e(),
           _vm._v(" "),
           _c(
@@ -17235,7 +17246,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "container border col-md-6", attrs: { row: "" } },
+      { staticClass: "container border col-md-6" },
       [
         _c("br"),
         _vm._v(" "),
@@ -17280,8 +17291,8 @@ var render = function() {
             attrs: { tag: "div", to: "/waitlistEntrance" }
           },
           [
-            _c("button", { staticClass: "btn btn-default btn-lg btn-block" }, [
-              _vm._v("Enter Parking Lot with Wait List Information")
+            _c("button", { staticClass: "btn btn-info btn-lg btn-block" }, [
+              _vm._v("Wait List Entrance")
             ])
           ]
         ),
@@ -17303,7 +17314,7 @@ var render = function() {
           "router-link",
           { staticClass: "form-group", attrs: { tag: "div", to: "/exit" } },
           [
-            _c("button", { staticClass: "btn btn-info btn-lg btn-block" }, [
+            _c("button", { staticClass: "btn btn-primary btn-lg btn-block" }, [
               _vm._v("Exit Parking Lot")
             ])
           ]
@@ -17409,7 +17420,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17461,7 +17472,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         processCreateTicket: function processCreateTicket(data) {
-            console.log(data);
             if (data.hasOwnProperty('ticket')) {
                 this.ticket = data.ticket;
             }
@@ -17700,85 +17710,91 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card card-default" },
-          [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Payment Details")
-            ]),
-            _vm._v(" "),
-            _c("alert-message", {
-              attrs: { error: _vm.error, success: _vm.success }
-            }),
-            _vm._v(
-              "\n\n                Ticket Number: " +
-                _vm._s(_vm.details.ticket.id) +
-                " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                Time in: " + _vm._s(_vm.details.timeIn) + " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                Time out: " + _vm._s(_vm.details.timeOut) + " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                Parking time in minutes: " +
-                _vm._s(_vm.details.totalTime) +
-                " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                Amount due: $" +
-                _vm._s(_vm.details.amountDue) +
-                " "
-            ),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row mb-0" }, [
-              _c(
-                "div",
-                { staticClass: "col-md-6 offset-md-4" },
-                [
-                  !_vm.isPaid
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          on: { click: _vm.sendPayment }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Pay Ticket\n                        "
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.isPaid
-                    ? _c(
-                        "router-link",
-                        {
-                          staticClass: "form-group",
-                          attrs: { tag: "div", to: "/" }
-                        },
-                        [
-                          _c("button", { staticClass: "btn btn-info" }, [
-                            _vm._v("Back to Home")
-                          ])
-                        ]
-                      )
-                    : _vm._e()
-                ],
-                1
-              )
-            ])
-          ],
-          1
-        )
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Payment Details")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("alert-message", {
+                attrs: { error: _vm.error, success: _vm.success }
+              }),
+              _vm._v(
+                "\n\n                        Ticket Number: " +
+                  _vm._s(_vm.details.ticket.id) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                        Time in: " +
+                  _vm._s(_vm.details.timeIn) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                        Time out: " +
+                  _vm._s(_vm.details.timeOut) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                        Parking time in minutes: " +
+                  _vm._s(_vm.details.totalTime) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                        Amount due: $" +
+                  _vm._s(_vm.details.amountDue) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row mb-0" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 offset-md-4" },
+                  [
+                    !_vm.isPaid
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            on: { click: _vm.sendPayment }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    Pay Ticket\n                                "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.isPaid
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "form-group",
+                            attrs: { tag: "div", to: "/" }
+                          },
+                          [
+                            _c("button", { staticClass: "btn btn-info" }, [
+                              _vm._v("Back to Home")
+                            ])
+                          ]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ],
+            1
+          )
+        ])
       ])
     ])
   ])
@@ -18335,7 +18351,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18348,9 +18364,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_AlertMessage__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_AlertMessage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_AlertMessage__);
-//
-//
-//
 //
 //
 //
@@ -18472,21 +18485,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("br"),
+    _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card card-default" },
-          [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Exit Parking Lot")
-            ]),
-            _vm._v(" "),
-            _c("alert-message", {
-              attrs: { error: _vm.error, success: _vm.success }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Exit Parking Lot")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("alert-message", {
+                attrs: { error: _vm.error, success: _vm.success }
+              }),
+              _vm._v(" "),
               _c(
                 "form",
                 {
@@ -18524,7 +18539,8 @@ var render = function() {
                           type: "number",
                           id: "ticket_number",
                           name: "ticket_number",
-                          required: ""
+                          required: "",
+                          disabled: _vm.isDone
                         },
                         domProps: { value: _vm.ticketNumber },
                         on: {
@@ -18584,7 +18600,8 @@ var render = function() {
                           type: "text",
                           id: "pin",
                           name: "pin",
-                          required: ""
+                          required: "",
+                          disabled: _vm.isDone
                         },
                         domProps: { value: _vm.pin },
                         on: {
@@ -18648,10 +18665,10 @@ var render = function() {
                   ])
                 ]
               )
-            ])
-          ],
-          1
-        )
+            ],
+            1
+          )
+        ])
       ])
     ])
   ])
@@ -18752,7 +18769,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18765,6 +18782,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_AlertMessage__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_AlertMessage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_AlertMessage__);
+//
 //
 //
 //
@@ -18885,19 +18903,19 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card card-default" },
-          [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Enter Wait List")
-            ]),
-            _vm._v(" "),
-            _c("alert-message", {
-              attrs: { error: _vm.error, success: _vm.success }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Enter Wait List")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("alert-message", {
+                attrs: { error: _vm.error, success: _vm.success }
+              }),
+              _vm._v(" "),
               _c(
                 "form",
                 {
@@ -18935,7 +18953,8 @@ var render = function() {
                           type: "text",
                           id: "email",
                           name: "email",
-                          required: ""
+                          required: "",
+                          disabled: _vm.isDone
                         },
                         domProps: { value: _vm.email },
                         on: {
@@ -18987,7 +19006,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", id: "name", name: "name" },
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          disabled: _vm.isDone
+                        },
                         domProps: { value: _vm.name },
                         on: {
                           input: function($event) {
@@ -19050,10 +19074,10 @@ var render = function() {
                   ])
                 ]
               )
-            ])
-          ],
-          1
-        )
+            ],
+            1
+          )
+        ])
       ])
     ])
   ])

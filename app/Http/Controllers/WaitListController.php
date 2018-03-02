@@ -47,9 +47,7 @@ class WaitListController extends Controller
             ];
 
             Mail::send('emails.waitlist', $data, function ($message) use ($nextWaitListUser) {
-
                 $message->to($nextWaitListUser->email, $nextWaitListUser->name)->subject('Vehikl Parking Spot Available');
-
             });
         }
     }

@@ -5,15 +5,19 @@
             <div class="card card-default">
                 <div class="card-header">Parking Lot Status</div>
                 <div class="card-body">
-                    <p v-if="availableSpaces > 0">There is currently {{ availableSpaces }} parking spaces available.</p>
-                    <p v-if="availableSpaces < 1">PARKING LOT IS FULL</p>
+                    <p v-if="availableSpaces > 0 && isRefreshed">
+                        There is currently {{ availableSpaces }} parking spaces available.
+                    </p>
+                    <p v-if="availableSpaces < 1 && isRefreshed">
+                        PARKING LOT IS FULL
+                    </p>
                     <button @click="checkStatus" class="btn btn-info">Refresh Availability</button>
                 </div>
             </div>
 
         </div>
         <br>
-        <div class="container border col-md-6" row>
+        <div class="container border col-md-6">
             <br>
 
             <router-link v-if="availableSpaces > 0" tag="div" to="/ticket" class="form-group">
@@ -25,7 +29,7 @@
             </router-link>
 
             <router-link tag="div" to="/waitlistEntrance" class="form-group">
-                <button class="btn btn-default btn-lg btn-block">Enter Parking Lot with Wait List Information</button>
+                <button class="btn btn-info btn-lg btn-block">Wait List Entrance</button>
             </router-link>
 
             <router-link tag="div" to="/ticket/pay" class="form-group">
@@ -33,7 +37,7 @@
             </router-link>
 
             <router-link tag="div" to="/exit" class="form-group">
-                <button class="btn btn-info btn-lg btn-block">Exit Parking Lot</button>
+                <button class="btn btn-primary btn-lg btn-block">Exit Parking Lot</button>
             </router-link>
         </div>
 
@@ -47,16 +51,20 @@
         name: "home",
         data() {
             return {
-                availableSpaces: 1
+                availableSpaces: 5,
+                isRefreshed: false
             }
         },
         methods: {
             checkStatus() {
                 axios.get('/api/ticket/status')
-                    .then(({data}) => this.availableSpaces = data.available);
+                    .then(({data}) => {
+                        this.availableSpaces = data.available;
+                        this.isRefreshed = true;
+                    });
             }
         },
-        mounted() {
+        created() {
             this.checkStatus();
         }
     }

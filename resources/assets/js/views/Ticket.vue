@@ -32,7 +32,6 @@
                     .then(({data}) => this.processCreateTicket(data));
             },
             processCreateTicket(data) {
-                console.log(data)
                 if (data.hasOwnProperty('ticket')) {
                     this.ticket = data.ticket;
                 }
