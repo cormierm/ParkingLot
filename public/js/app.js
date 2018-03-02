@@ -17193,10 +17193,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
+        var _this2 = this;
+
         this.checkStatus();
         setInterval(function () {
-            this.checkStatus();
-        }.bind(this), 20000);
+            _this2.checkStatus();
+        }, 10000);
     }
 });
 

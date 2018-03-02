@@ -66,9 +66,9 @@
         },
         created() {
             this.checkStatus();
-            setInterval(function () {
+            setInterval(() => {
                 this.checkStatus();
-            }.bind(this), 20000);
+            }, 10000);
         }
     }
 </script>
