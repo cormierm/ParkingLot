@@ -16,7 +16,7 @@
         Ticket number: {{ $ticket_number }}<br>
         PIN: {{ $pin }}
     </p>
-    <p>If you no longer need to space please
+    <p>If you no longer need the parking space please
         <a href="http://parking.mattcormier.com/waitlist/cancel?ticket_number={{ $ticket_number }}&pin={{ $pin }}"> click here.</a>
     </p>
 

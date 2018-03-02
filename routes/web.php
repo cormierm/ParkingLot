@@ -9,6 +9,3 @@ Route::get('/clear', function () {
     App\Waitlist::truncate();
     return "Cleared database.";
 });
-
-use App\Waitlist;
-Route::get('/test','WaitListController@processWaitList');
