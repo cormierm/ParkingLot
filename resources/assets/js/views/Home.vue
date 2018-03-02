@@ -33,7 +33,7 @@
             </router-link>
 
             <router-link tag="div" to="/ticket/pay" class="form-group">
-                <a class="btn btn-danger btn-lg btn-block">Pay Ticket</a>
+                <a class="btn btn-danger btn-lg btn-block"><span class="glyphicons-stop-sign"></span>Pay Ticket</a>
             </router-link>
 
             <router-link tag="div" to="/exit" class="form-group">
@@ -66,6 +66,9 @@
         },
         created() {
             this.checkStatus();
+            setInterval(function () {
+                this.checkStatus();
+            }.bind(this), 20000);
         }
     }
 </script>

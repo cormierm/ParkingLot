@@ -17078,7 +17078,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17194,6 +17194,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.checkStatus();
+        setInterval(function () {
+            this.checkStatus();
+        }.bind(this), 20000);
     }
 });
 
@@ -17305,6 +17308,7 @@ var render = function() {
           },
           [
             _c("a", { staticClass: "btn btn-danger btn-lg btn-block" }, [
+              _c("span", { staticClass: "glyphicons-stop-sign" }),
               _vm._v("Pay Ticket")
             ])
           ]
