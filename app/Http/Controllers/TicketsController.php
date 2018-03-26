@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Ticket;
+use Illuminate\Http\Response;
 
 class TicketsController extends Controller
 {
@@ -12,9 +13,9 @@ class TicketsController extends Controller
 
     public function create() {
         if ((self::MAX_SPACES - Ticket::all()->count()) <= 0) {
-            return [
+            return response()->json([
                 'message' => 'Sorry, Parking is full. Please wait till space becomes available.'
-            ];
+            ], Response::HTTP_BAD_REQUEST );
         }
 
         $ticket = $this->createNewTicket();
@@ -22,10 +23,10 @@ class TicketsController extends Controller
         session('ticketNumber', $ticket->id);
         session('pin', $ticket->pin);
 
-        return [
+        return response()->json([
             'ticket' => $ticket,
             'message' => 'Ticket successfully created.'
-            ];
+            ], Response::HTTP_CREATED);
     }
 
     public function cancel(Request $request) {

@@ -17947,7 +17947,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18050,7 +18050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = _ref.data;
                 return _this.processDetails(data);
             }).catch(function (error) {
-                return _this.processErrors(error.response.data);
+                return _this.processErrors(error.response);
             });
         },
         processDetails: function processDetails(data) {
@@ -18062,11 +18062,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         processErrors: function processErrors(data) {
-            if (data.errors.hasOwnProperty('ticket_number')) {
-                this.formErrors.ticketNumber = data.errors.ticket_number[0];
+            if (data.status = 401) {
+                this.error = data.data.error;
             }
-            if (data.errors.hasOwnProperty('pin')) {
-                this.formErrors.pin = data.errors.pin[0];
+            if (data.status = 422 && data.data.errors.hasOwnProperty('ticket_number')) {
+                this.formErrors.ticketNumber = data.data.errors.ticket_number[0];
+            }
+            if (data.status = 422 && data.data.errors.hasOwnProperty('pin')) {
+                this.formErrors.pin = data.data.errors.pin[0];
             }
         }
     }

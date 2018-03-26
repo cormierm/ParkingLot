@@ -81,7 +81,7 @@
                     pin: this.pin
                 })
                     .then(({data}) => this.processDetails(data))
-                    .catch(error => this.processErrors(error.response.data));
+                    .catch(error => this.processErrors(error.response));
             },
             processDetails (data) {
                 if (data.hasOwnProperty('error')) {
@@ -93,12 +93,17 @@
                 }
             },
             processErrors(data) {
-                if (data.errors.hasOwnProperty('ticket_number')) {
-                    this.formErrors.ticketNumber = data.errors.ticket_number[0];
+                if (data.status = 401) {
+                    this.error = data.data.error;
                 }
-                if (data.errors.hasOwnProperty('pin')) {
-                    this.formErrors.pin = data.errors.pin[0];
+                if (data.status = 422 && data.data.errors.hasOwnProperty('ticket_number')) {
+                    this.formErrors.ticketNumber = data.data.errors.ticket_number[0];
                 }
+                if (data.status = 422 && data.data.errors.hasOwnProperty('pin')) {
+                    this.formErrors.pin = data.data.errors.pin[0];
+                }
+
+
             }
         }
     }
