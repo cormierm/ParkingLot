@@ -68,7 +68,7 @@
             this.checkStatus();
             setInterval(() => {
                 this.checkStatus();
-            }, 10000);
+            }, 20000);
         }
     }
 </script>

@@ -50,20 +50,22 @@ class PaymentsController extends Controller
     }
 
     public static function processRate($totalTime) {
-        switch ($totalTime) {
-            case $totalTime === '0':
-            case $totalTime <= 60:
-                return self::BASE_RATE;
-                break;
-            case $totalTime <= 60 * 3:
-                return self::BASE_RATE * 1.5;
-                break;
-            case  $totalTime <= 60 * 6:
-                return self::BASE_RATE * pow(1.5, 2);
-                break;
-            default:
-                return self::BASE_RATE * pow(1.5, 3);
-                break;
+
+        if ($totalTime <= 0) {
+            return 0;
         }
+        elseif ($totalTime <= 60) {
+            return self::BASE_RATE;
+        }
+        elseif ($totalTime <= 60 * 3) {
+            return self::BASE_RATE * 1.5;
+        }
+        elseif ($totalTime <= 60 * 6) {
+            return self::BASE_RATE * pow(1.5, 2);
+        }
+        else {
+            return self::BASE_RATE * pow(1.5, 3);
+        }
+
     }
 }

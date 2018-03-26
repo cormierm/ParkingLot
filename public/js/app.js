@@ -17198,7 +17198,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.checkStatus();
         setInterval(function () {
             _this2.checkStatus();
-        }, 10000);
+        }, 20000);
     }
 });
 
